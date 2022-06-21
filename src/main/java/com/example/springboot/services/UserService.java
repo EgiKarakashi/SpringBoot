@@ -6,11 +6,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     public User createUser(User user) {
-        User saveUser = new User(
+        return new User(
                 user.getId(),
                 user.getName(),
                 user.getUsername()
         );
-        return saveUser;
+    }
+
+    public void editUser(User user, long id, String name, String username) {
+                user.setId(id);
+                user.setName(name);
+                user.setUsername(username);
     }
 }
