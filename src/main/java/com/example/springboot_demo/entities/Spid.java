@@ -37,27 +37,20 @@ public class Spid extends Base {
 
     }
 
-    public long getId() {
+
+    public long getUserId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Status getStatus() {
-        return status;
+    public User getId() {
+        return user;
     }
 
     public void setStatus(Status status) {
         this.status = status;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
+    public Status getStatus() {
+        return status;
     }
 }

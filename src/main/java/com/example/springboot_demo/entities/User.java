@@ -31,4 +31,18 @@ public class User extends Base {
     public User() {
         super();
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setName(String name) {
+
+    }
+
+    public void setSurname(String surname) {
+    }
+
+    public void setEmail(String email) {
+    }
 }
