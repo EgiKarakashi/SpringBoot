@@ -2,7 +2,6 @@ package com.example.springboot_demo.entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 
 @Entity
@@ -14,7 +13,7 @@ public class Spid extends Base {
 
     @OneToOne
     @JoinColumn(name = "userId")
-    private User user;
+    private User userId;
     private Status status;
     private Type type;
 
@@ -22,32 +21,29 @@ public class Spid extends Base {
 
     }
 
-    public User getUser() {
-        return user;
+    public User getUserId() {
+        return userId;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.userId = userId;
     }
 
-    public Spid(LocalDateTime createdAt, String createdBy, User user, long id, Status status, Type type) {
+    public Spid(LocalDateTime createdAt, String createdBy, User userId, long id, Status status, Type type) {
         super(createdAt, createdBy);
         this.id = id;
         this.status = status;
         this.type = type;
-        this.user = user;
+        this.userId = userId;
     }
 
 
 
 
 
-    public long getUserId() {
-        return id;
-    }
 
     public User getId() {
-        return user;
+        return userId;
     }
 
     public void setStatus(Status status) {

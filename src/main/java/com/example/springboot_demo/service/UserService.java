@@ -2,7 +2,6 @@ package com.example.springboot_demo.service;
 
 import com.example.springboot_demo.entities.User;
 import com.example.springboot_demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,35 +9,28 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
 
-    public Optional<User> getUserById(long id) {
-        return userRepository.findById(id);
+    UserRepository userRepository;
+
+    UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public User updateUserById(long id, String name, String surname, String email) throws Exception {
-        Optional<User> user = userRepository.findById(id);
+    public User createUser(User user) throws Exception {
+        Optional<User> findIfUserExists = userRepository.findUserById(user.getId());
 
-        if (user.isEmpty()) {
-            throw new Exception("User does not exist");
+        if (findIfUserExists.isPresent()) {
+            throw new Exception("User already exists");
         }
-
-        if (name != null) {
-            user.get().setName(name);
-        }
-
-        if (surname != null) {
-            user.get().setSurname(surname);
-        }
-
-        if (email != null) {
-            user.get().setEmail(email);
-        }
-
-        return userRepository.save(user.get());
-    }
-
-    public User createUser(User user) {
         return userRepository.save(user);
+    }
+
+    public User updateUser(User user, long id) throws Exception {
+        if (userRepository.findUserById(id).isPresent()) {
+            user.setId(id);
+            return userRepository.save(user);
+        } else {
+            throw new Exception("User does not exists");
+        }
     }
 }

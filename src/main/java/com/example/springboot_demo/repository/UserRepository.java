@@ -3,11 +3,10 @@ package com.example.springboot_demo.repository;
 import com.example.springboot_demo.entities.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-    List<User> findUserById(long id);
+    Optional<User> findUserById(long id);
 }

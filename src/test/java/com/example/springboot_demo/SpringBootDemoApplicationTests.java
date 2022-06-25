@@ -24,12 +24,12 @@ class SpringBootDemoApplicationTests {
     @Test
     void test() {
         try {
-            System.out.println(userService.getUserById(1));
+            System.out.println(userService.(1));
             User user = userService.updateUserById(1, "john", "doe", "johndoe@gmail.com");
             System.out.println(userService.getUserById(1));
 
             Spid spid = spidService.createSpid(new Spid(LocalDateTime.now(), "johndoe", user, 1, Status.APPROVED, Type.LEVEL_1));
-            System.out.println(spidService.searchSpid(user));
+            System.out.println(spidService.findSpidById(user.getId()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

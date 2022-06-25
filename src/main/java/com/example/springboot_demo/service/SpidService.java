@@ -1,57 +1,68 @@
 package com.example.springboot_demo.service;
 
+
 import com.example.springboot_demo.entities.Spid;
 import com.example.springboot_demo.entities.Status;
 import com.example.springboot_demo.entities.User;
 import com.example.springboot_demo.repository.SpidRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springboot_demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class SpidService {
 
 
-    private SpidRepository spidRepository;
+    SpidRepository spidRepository;
+    UserRepository userRepository;
 
-    public List<Spid> getSpidByUserId(User user) {
-        return spidRepository.findSpidById(user);
+    SpidService(SpidRepository spidRepository, UserRepository userRepository) {
+        this.spidRepository = spidRepository;
+        this.userRepository = userRepository;
+    }
+
+    public Iterable<Spid> retriveAllSpids() {
+        return spidRepository.findAll();
+    }
+
+    public Spid findSpidById(long id) throws Exception {
+        Optional<Spid> spid = spidRepository.findById(id);
+
+        if (!spid.isPresent()) {
+            throw new Exception("This spid does not exists");
+        }
+
+        return spid.get();
     }
 
     @Transactional
     public Spid createSpid(Spid spid) throws Exception {
-        List<Spid> spids = spidRepository.findSpidById(spid.getUser());
-        if (spids.size() > 0) {
-            throw new Exception("User is already created");
+        Optional<Spid> currentSpid = spidRepository.findSpidByUserId(spid.getUserId());
+        Optional<User> user = userRepository.findById(spid.getUserId().getId());
+
+        if (!user.isPresent()) {
+            throw new Exception("User does not exists");
         }
-        spid.setUser(spid.getId());
+
+
+        if (currentSpid.isPresent()) {
+            throw new Exception("User has already created a spid");
+        }
+
         return spidRepository.save(spid);
     }
 
-    public Iterable<Spid> retreiveAllSpids() {
-        return spidRepository.findAll();
-    }
-
-    public Spid changeSpidStatus(Spid spid) {
+    public Spid changeStatus(long id) throws Exception {
+        Spid spid = findSpidById(id);
         spid.setStatus(Status.READY_FOR_REVIEW);
         return spidRepository.save(spid);
     }
 
-    public Spid searchSpid(User user) throws Exception {
-        List<Spid> spid = spidRepository.findSpidById(user);
-        if (spid.size() <= 0) {
-            throw new Exception("No SPID for the selected user exists");
-        }
-        return spid.get(0);
+    @Transactional
+    public void deleteSpid(long id) {
+        spidRepository.deleteById(id);
     }
-
-    public void deleteSpid(Spid spid) throws Exception {
-        if (spid.getStatus() != Status.PENDING) {
-            throw new Exception("You cannot delete this SPID");
-        }
-        spidRepository.delete(spid);
-    }
-
 }

@@ -51,4 +51,40 @@ public class User extends Base {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
