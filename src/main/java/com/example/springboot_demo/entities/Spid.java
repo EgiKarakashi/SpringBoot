@@ -1,9 +1,15 @@
 package com.example.springboot_demo.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Spid")
 public class Spid extends Base {
@@ -11,50 +17,12 @@ public class Spid extends Base {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User userId;
+    @Enumerated(EnumType.STRING)
     private Status status;
+    @Enumerated(EnumType.STRING)
     private Type type;
 
-    public Spid() {
-
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUser(User user) {
-        this.userId = userId;
-    }
-
-    public Spid(LocalDateTime createdAt, String createdBy, User userId, long id, Status status, Type type) {
-        super(createdAt, createdBy);
-        this.id = id;
-        this.status = status;
-        this.type = type;
-        this.userId = userId;
-    }
-
-
-
-
-
-
-    public User getId() {
-        return userId;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }

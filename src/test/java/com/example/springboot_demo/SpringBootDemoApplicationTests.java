@@ -28,7 +28,7 @@ class SpringBootDemoApplicationTests {
             User user = userService.updateUser(new User(), 1L);
             System.out.println(userService.getUserById(1L));
 
-            Spid spid = spidService.createSpid(new Spid(LocalDateTime.now(), "johndoe", user, 1, Status.APPROVED, Type.LEVEL_1));
+            Spid spid = spidService.createSpid(new Spid());
             System.out.println(spidService.findSpidById(user.getId()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
