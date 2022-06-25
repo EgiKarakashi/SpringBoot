@@ -25,6 +25,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User getUserById(Long id) {
+        return userRepository.findById(id).get();
+    }
+
     public User updateUser(User user, long id) throws Exception {
         if (userRepository.findUserById(id).isPresent()) {
             user.setId(id);

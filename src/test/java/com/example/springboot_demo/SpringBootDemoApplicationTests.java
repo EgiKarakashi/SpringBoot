@@ -24,9 +24,9 @@ class SpringBootDemoApplicationTests {
     @Test
     void test() {
         try {
-            System.out.println(userService.(1));
-            User user = userService.updateUserById(1, "john", "doe", "johndoe@gmail.com");
-            System.out.println(userService.getUserById(1));
+            System.out.println(userService.getUserById(1L));
+            User user = userService.updateUser(new User(), 1L);
+            System.out.println(userService.getUserById(1L));
 
             Spid spid = spidService.createSpid(new Spid(LocalDateTime.now(), "johndoe", user, 1, Status.APPROVED, Type.LEVEL_1));
             System.out.println(spidService.findSpidById(user.getId()));
