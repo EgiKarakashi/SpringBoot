@@ -2,6 +2,8 @@ package com.example.springboot_demo.entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Optional;
+
 
 @Entity
 @Table(name = "Spid")
@@ -15,6 +17,10 @@ public class Spid extends Base {
     private User user;
     private Status status;
     private Type type;
+
+    public Spid() {
+
+    }
 
     public User getUser() {
         return user;
@@ -33,9 +39,7 @@ public class Spid extends Base {
     }
 
 
-    public Spid() {
 
-    }
 
 
     public long getUserId() {
@@ -52,5 +56,9 @@ public class Spid extends Base {
 
     public Status getStatus() {
         return status;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -7,18 +7,20 @@ import com.example.springboot_demo.repository.SpidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class SpidService {
 
-    @Autowired
+
     private SpidRepository spidRepository;
 
     public List<Spid> getSpidByUserId(User user) {
         return spidRepository.findSpidById(user);
     }
 
+    @Transactional
     public Spid createSpid(Spid spid) throws Exception {
         List<Spid> spids = spidRepository.findSpidById(spid.getUser());
         if (spids.size() > 0) {
@@ -51,4 +53,5 @@ public class SpidService {
         }
         spidRepository.delete(spid);
     }
+
 }
