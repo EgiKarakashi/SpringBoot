@@ -20,7 +20,7 @@ class MainControllerTest {
     SpidRepository spidRepository;
 
     @Test
-    void createUser() {
+    void createUserTest() {
         try {
             User user = new User();
             user.setName("test");
@@ -33,7 +33,7 @@ class MainControllerTest {
     }
 
     @Test
-    void updateUser() {
+    void updateUserTest() {
         try {
             User user = userRepository.findById(1L).get();
             user.setName("test2");
@@ -45,7 +45,7 @@ class MainControllerTest {
     }
 
     @Test
-    void getAllSpids() {
+    void getAllSpidsTest() {
         try {
             Iterable<Spid> spids = spidRepository.findAll();
             Assertions.assertThat(spids).isNotNull();
@@ -55,7 +55,7 @@ class MainControllerTest {
     }
 
     @Test
-    void getSpid() {
+    void getSpidTest() {
         try {
             Optional<Spid> spid = spidRepository.findById(1L);
             Assertions.assertThat(spid).isNotNull();
@@ -65,7 +65,7 @@ class MainControllerTest {
     }
 
     @Test
-    void createSpid() {
+    void createSpidTest() {
         try {
             User user = userRepository.findById(1L).get();
             Spid spid = new Spid();
@@ -77,7 +77,7 @@ class MainControllerTest {
     }
 
     @Test
-    void changeSpidStatus() {
+    void changeSpidStatusTest() {
         try {
             Spid spid = spidRepository.findById(1L).get();
             spid.setStatus(Status.PENDING);
@@ -89,7 +89,7 @@ class MainControllerTest {
     }
 
     @Test
-    void deleteSpid() {
+    void deleteSpidTest() {
         try {
             Spid spid = spidRepository.findById(1L).get();
             spidRepository.delete(spid);
